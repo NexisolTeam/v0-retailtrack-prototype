@@ -1,22 +1,24 @@
-import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
-import { Package, TrendingUp, CreditCard, Users, ShoppingCart, DollarSign, AlertTriangle, Plus } from "lucide-react";
-import { Navigation } from "@/components/Navigation";
-import { StockManager } from "@/components/StockManager";
-import { InventoryManager } from "@/components/InventoryManager";
-import { SalesTracker } from "@/components/SalesTracker";
-import { FinancialOverview } from "@/components/FinancialOverview";
-import { UserManagement } from "@/components/UserManagement";
-import { CustomerManagement } from "@/components/CustomerManagement";
-import { BankAccountManager } from "@/components/BankAccountManager";
+"use client"
+
+import { useState } from "react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
+import { Package, CreditCard, ShoppingCart, DollarSign, AlertTriangle } from "lucide-react"
+import { Navigation } from "@/components/Navigation"
+import { StockManager } from "@/components/StockManager"
+import { InventoryManager } from "@/components/InventoryManager"
+import { SalesTracker } from "@/components/SalesTracker"
+import { FinancialOverview } from "@/components/FinancialOverview"
+import { UserManagement } from "@/components/UserManagement"
+import { CustomerManagement } from "@/components/CustomerManagement"
+import { BankAccountManager } from "@/components/BankAccountManager"
+import { ReceiptManagement } from "@/components/ReceiptManagement"
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState("dashboard");
-  const [userRole, setUserRole] = useState("Admin"); // Admin, Sales, Accountant
+  const [activeTab, setActiveTab] = useState("dashboard")
+  const [userRole, setUserRole] = useState("Admin") // Admin, Sales, Accountant
 
   // Mock data for charts
   const dailySalesData = [
@@ -27,14 +29,14 @@ const Index = () => {
     { date: "Fri", income: 7300, expense: 3800 },
     { date: "Sat", income: 8900, expense: 4200 },
     { date: "Sun", income: 5600, expense: 2900 },
-  ];
+  ]
 
   const paymentMethodsData = [
     { name: "Cash", value: 45, color: "#0088FE" },
     { name: "Bank Transfer", value: 35, color: "#00C49F" },
     { name: "Mobile Pay", value: 15, color: "#FFBB28" },
     { name: "Credit", value: 5, color: "#FF8042" },
-  ];
+  ]
 
   const stockLevelsData = [
     { item: "Product A", stock: 120, min: 50 },
@@ -42,12 +44,12 @@ const Index = () => {
     { item: "Product C", stock: 89, min: 30 },
     { item: "Product D", stock: 15, min: 25 },
     { item: "Product E", stock: 67, min: 40 },
-  ];
+  ]
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation activeTab={activeTab} setActiveTab={setActiveTab} userRole={userRole} />
-      
+
       <main className="container mx-auto px-4 py-6 max-w-7xl">
         <div className="mb-6">
           <div className="flex items-center justify-between">
@@ -178,11 +180,13 @@ const Index = () => {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className={`font-bold ${item.stock < item.min ? 'text-red-600' : 'text-green-600'}`}>
+                        <p className={`font-bold ${item.stock < item.min ? "text-red-600" : "text-green-600"}`}>
                           {item.stock} units
                         </p>
                         {item.stock < item.min && (
-                          <Badge variant="destructive" className="text-xs">Low Stock</Badge>
+                          <Badge variant="destructive" className="text-xs">
+                            Low Stock
+                          </Badge>
                         )}
                       </div>
                     </div>
@@ -208,6 +212,10 @@ const Index = () => {
             <CustomerManagement userRole={userRole} />
           </TabsContent>
 
+          <TabsContent value="receipts">
+            <ReceiptManagement userRole={userRole} />
+          </TabsContent>
+
           <TabsContent value="banks">
             <BankAccountManager userRole={userRole} />
           </TabsContent>
@@ -222,7 +230,7 @@ const Index = () => {
         </Tabs>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index
